@@ -3,20 +3,20 @@
     "port": 4000,
     "mongoConnection": "mongodb://localhost:27017",
     "dbName": "recipesBookDB",
-    "jwtSecret": "",
+    "jwtSecret": "use your secret here",
     "hashType": "md5",
-    "hashKey": "hash_key",
-    "signature": "signature",
+    "hashKey": "use ypur hash key here",
+    "signature": "use ypur hash signature here",
     "expiration": "6h"
   },
   "production": {
     "port": 4000,
     "mongoConnection": "Set your mongo connection url here",
     "dbName": "recipesBookDB",
-    "jwtSecret": "",
+    "jwtSecret": "use your secret here",
     "hashType": "md5",
-    "hashKey": "hash_key",
-    "signature": "signature",
+    "hashKey": "use ypur hash key here",
+    "signature": "use ypur hash signature here",
     "expiration": "6h"
   }
 }
