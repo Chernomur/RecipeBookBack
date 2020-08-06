@@ -1,0 +1,22 @@
+{
+  "development": {
+    "port": 4000,
+    "mongoConnection": "mongodb://localhost:27017",
+    "dbName": "recipesBookDB",
+    "jwtSecret": "",
+    "hashType": "md5",
+    "hashKey": "hash_key",
+    "signature": "signature",
+    "expiration": "6h"
+  },
+  "production": {
+    "port": 4000,
+    "mongoConnection": "Set your mongo connection url here",
+    "dbName": "recipesBookDB",
+    "jwtSecret": "",
+    "hashType": "md5",
+    "hashKey": "hash_key",
+    "signature": "signature",
+    "expiration": "6h"
+  }
+}
