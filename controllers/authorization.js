@@ -11,8 +11,11 @@ const singIn = async (req, res) => {
     if (!user) {
       return res.sendStatus(404);
     }
+    if (!password){
+      return res.status(400).send("invalid password")
+    }
     if (crypto(password) !== user.password) {
-      return res.sendStatus(400);
+      return res.status(400).send("invalid password")
     }
 
     user = user.toJSON();

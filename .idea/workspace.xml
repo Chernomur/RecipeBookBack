@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="269898f5-892f-4da0-b578-1f5d95e3307c" name="Default Changelist" comment="" />
+    <list default="true" id="269898f5-892f-4da0-b578-1f5d95e3307c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/authorization.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/errorHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/errorHandler.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1fOafn5nMYdJee1DyVuFDta2QD8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -47,26 +55,50 @@
       <workItem from="1596092546530" duration="17862000" />
       <workItem from="1596432193110" duration="14088000" />
       <workItem from="1596510927729" duration="18689000" />
-      <workItem from="1596684137239" duration="9331000" />
+      <workItem from="1596684137239" duration="16197000" />
     </task>
+    <task id="LOCAL-00001" summary="adding img upload">
+      <created>1596714600502</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1596714600503</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding img upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding img upload" />
   </component>
   <component name="WindowStateProjectService">
     <state x="450" y="186" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1596535326581">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="450" y="186" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1596535326581" />
-    <state x="463" y="139" key="FileChooserDialogImpl" timestamp="1596429001474">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1596714595819">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="463" y="139" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1596429001474" />
-    <state x="390" y="117" width="585" height="534" key="find.popup" timestamp="1596537511547">
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1596714595819" />
+    <state x="463" y="139" key="FileChooserDialogImpl" timestamp="1596714447235">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="390" y="117" width="585" height="534" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1596537511547" />
+    <state x="463" y="139" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1596714447235" />
+    <state x="561" y="282" key="Github.ShareDialog" timestamp="1596714646539">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="561" y="282" key="Github.ShareDialog/0.0.1366.768@0.0.1366.768" timestamp="1596714646539" />
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1596769656393">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1596769656393" />
+    <state x="390" y="117" width="585" height="534" key="find.popup" timestamp="1596802118052">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="390" y="117" width="585" height="534" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1596802118052" />
     <state x="475" y="242" key="scopes" timestamp="1596536367401">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
