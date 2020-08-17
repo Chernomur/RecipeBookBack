@@ -1,7 +1,7 @@
 module.exports = async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {
-      return res.sendStatus(403);
+      return res.status(403).json({ message: 'You have no permissions to see that' });
     }
 
     next();

@@ -1,14 +1,11 @@
 const isPasswordValid = (password) => {
   if (password.length < 3 || password.length > 50) {
-    return false
+    return false;
   }
 
-  if (password.includes(" ")) {
-    return false
-  }
-  return true;
+  return !password.includes(" ");
 };
 
 module.exports = {
-  password: isPasswordValid
+  password: isPasswordValid,
 };

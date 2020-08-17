@@ -1,9 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const config = require("./config")
+const config = require("./config");
 const routes = require("./routes");
 const cors = require("cors");
 const multer = require("multer");
+const multerConf = require("./middlewhare/multerConf");
 
 const app = express();
 
@@ -15,8 +16,14 @@ const app = express();
 //   return next();
 // });
 app.use(cors());
-app.use(multer({dest:"uploads"}).single("filedata"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(
+  multer({
+    storage: multerConf.storageConfig,
+    fileFilter: multerConf.fileFilter,
+  }).single("filedata")
+);
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json());
 
 routes(app);

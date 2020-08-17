@@ -6,10 +6,10 @@ module.exports = async (req, res, next) => {
     if (!req.headers.authorization) {
       return res.sendStatus(401);
     }
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(" ")[1];
 
-    const {_id} = jwt.verify(token);
-    const user = await db.User.findOne({_id});
+    const { _id } = jwt.verify(token);
+    const user = await db.User.findOne({ _id });
     if (!user) {
       return res.sendStatus(404);
     }
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
 
     next();
   } catch (e) {
-    console.error(e)
+    console.error(e);
     if (e.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
@@ -27,4 +27,4 @@ module.exports = async (req, res, next) => {
     }
     res.sendStatus(500);
   }
-}
+};

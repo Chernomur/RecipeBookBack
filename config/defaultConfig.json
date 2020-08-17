@@ -5,8 +5,8 @@
     "dbName": "recipesBookDB",
     "jwtSecret": "use your secret here",
     "hashType": "md5",
-    "hashKey": "use ypur hash key here",
-    "signature": "use ypur hash signature here",
+    "hashKey": "use your hash key here",
+    "signature": "use your hash signature here",
     "expiration": "6h"
   },
   "production": {
@@ -15,8 +15,8 @@
     "dbName": "recipesBookDB",
     "jwtSecret": "use your secret here",
     "hashType": "md5",
-    "hashKey": "use ypur hash key here",
-    "signature": "use ypur hash signature here",
+    "hashKey": "use your hash key here",
+    "signature": "use your hash signature here",
     "expiration": "6h"
   }
 }
