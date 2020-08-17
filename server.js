@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const app = require("./app");
-const config = require("./config")
+const config = require("./config");
 
 mongoose.connect(
   `${config.mongoConnection}/${config.dbName}`,
   { useNewUrlParser: true },
   (err) => {
-    if (err) { return console.error('Mongo connection error: ', err); }
+    if (err) {
+      return console.error("Mongo connection error: ", err);
+    }
   }
 );
 
