@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
     const { id } = jwt.verify(token);
 
-    const user = await db.User.findOne({ id });
+    user = await db.User.findOne({ where: { id: id } });
 
     if (!user) {
       return res.sendStatus(404);
