@@ -8,11 +8,6 @@ module.exports = {
     });
   },
   verify: function (auth) {
-    return console.log(
-      jwt.verify(auth, config.signature, (err, decoded) => {
-        console.log(Object.keys(decoded));
-        return decoded;
-      })
-    );
+    return jwt.verify(auth, config.signature);
   },
 };

@@ -3,6 +3,8 @@ const crypto = require("../utils/crypto");
 const token = require("../utils/token");
 const validation = require("../utils/validation");
 const errorHandler = require("../utils/errorHandler");
+const config = require("../config/index");
+const jwt = require("jsonwebtoken");
 
 const singIn = async (req, res) => {
   try {
@@ -36,7 +38,11 @@ const singIn = async (req, res) => {
     user = user.toJSON();
     delete user.password;
 
-    res.json({ token: token.create(user.id), user });
+    // console.log("user.id", user.id);
+    // console.log("123456", token.create(user.id));
+    // console.log(jwt.verify(token.create({ id: user.id }), config.signature));
+
+    res.json({ token: token.create({ id: user.id }), user });
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
