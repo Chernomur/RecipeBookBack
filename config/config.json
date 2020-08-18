@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "123456",
+    "database": "recipebook",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "admin",
+    "password": "",
+    "database": "admin",
+    "host": "127.0.0.1",
+    "dialect": "recipebook"
+  },
+  "production": {
+    "username": "admin",
+    "password": "",
+    "database": "admin",
+    "host": "127.0.0.1",
+    "dialect": "recipebook"
+  }
+}

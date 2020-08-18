@@ -112,11 +112,19 @@ const update = async (req, res) => {
       user.password = crypto(newPassword);
     }
 
-    await db.User.findOneAndUpdate(
-      { _id: id },
+    // await db.User.findOneAndUpdate(
+    //   { id },
+    //   { fullName, email, password: user.password },
+    //   { new: true, runValidators: true, useFindAndModify: false }
+    // );
+
+    await db.User.update(
       { fullName, email, password: user.password },
-      { new: true, runValidators: true, useFindAndModify: false }
-    );
+      { where: { id: id } }
+    ).then((res) => {
+      console.log(res);
+    });
+
     user = user.toJSON();
     delete user.password;
 
@@ -146,11 +154,18 @@ const uploadImg = async (req, res) => {
 
   user.avatar = file.path.replace("public/", "");
 
-  let newUser = await db.User.findOneAndUpdate(
-    { _id: user.id },
+  // let newUser = await db.User.findOneAndUpdate(
+  //   { id: user.id },
+  //   { avatar: user.avatar },
+  //   { new: true, runValidators: true, useFindAndModify: false }
+  // );
+
+  let newUser = await db.User.update(
     { avatar: user.avatar },
-    { new: true, runValidators: true, useFindAndModify: false }
-  );
+    { where: { id: user.id } }
+  ).then((res) => {
+    console.log(res);
+  });
 
   newUser = newUser.toJSON();
   delete newUser.password;

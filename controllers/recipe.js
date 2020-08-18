@@ -5,7 +5,7 @@ const validation = require("../utils/validation");
 
 const allRecipe = async (req, res) => {
   try {
-    const recipes = await db.Recipe.find();
+    const recipes = await db.Recipe.findAll();
 
     res.json(recipes);
   } catch (e) {

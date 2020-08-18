@@ -8,7 +8,7 @@ const singIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    let user = await db.User.findOne({ email });
+    let user = await db.User.findOne({ where: { email } });
 
     if (!email) {
       return res.status(400).send({ field: "email", message: "invalid email" });
@@ -35,7 +35,8 @@ const singIn = async (req, res) => {
 
     user = user.toJSON();
     delete user.password;
-    res.json({ token: token.create(user._id), user });
+
+    res.json({ token: token.create(user.id), user });
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
@@ -58,8 +59,8 @@ const singUp = async (req, res) => {
 
     user = user.toJSON();
     delete user.password;
-
-    res.json({ token: token.create(user._id), user });
+    //console.log("tokenfs", { token: token.create(user.id), user });
+    res.json({ token: token.create(user.id), user });
   } catch (e) {
     console.error(e);
     console.log("register controller", e);

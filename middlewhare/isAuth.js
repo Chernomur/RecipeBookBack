@@ -8,8 +8,10 @@ module.exports = async (req, res, next) => {
     }
     const token = req.headers.authorization.split(" ")[1];
 
-    const { _id } = jwt.verify(token);
-    const user = await db.User.findOne({ _id });
+    const { id } = jwt.verify(token);
+
+    const user = await db.User.findOne({ id });
+
     if (!user) {
       return res.sendStatus(404);
     }
