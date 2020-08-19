@@ -1,6 +1,7 @@
 {
   "development": {
     "port": 4000,
+    "addressServer": "http://localhost:4000/",
     "mongoConnection": "mongodb://localhost:27017",
     "dbName": "recipesBookDB",
     "jwtSecret": "use your secret here",
@@ -11,6 +12,7 @@
   },
   "production": {
     "port": 4000,
+    "addressServer": "http://localhost:4000/",
     "mongoConnection": "Set your mongo connection url here",
     "dbName": "recipesBookDB",
     "jwtSecret": "use your secret here",

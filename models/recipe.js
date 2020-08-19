@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
 
       title: {
         type: DataTypes.STRING,
-        len: [3, 50],
+        validate: {
+          len: [3, 50],
+        },
         allowNull: false,
       },
 
@@ -33,13 +35,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       difficulty: {
-        type: DataTypes.INTEGER,
-        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        required: true,
+        type: DataTypes.ENUM(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+        allowNull: false,
       },
       cookingTime: {
         type: DataTypes.INTEGER,
-        required: true,
+        allowNull: false,
       },
     },
     {

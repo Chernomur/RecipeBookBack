@@ -16,9 +16,15 @@ const allRecipe = async (req, res) => {
 
 const createRecipe = async (req, res) => {
   try {
-    const { title, description, difficulty, cookingTime } = req.body;
+    const { ownerId, title, description, difficulty, cookingTime } = req.body;
 
-    let recipe = new db.Recipe({ title, description, difficulty, cookingTime });
+    let recipe = new db.Recipe({
+      ownerId,
+      title,
+      description,
+      difficulty,
+      cookingTime,
+    });
 
     await recipe.save();
     recipe = recipe.toJSON();

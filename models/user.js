@@ -1,4 +1,6 @@
 "use strict";
+const config = require("../config");
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,19 +17,23 @@ module.exports = (sequelize, DataTypes) => {
     {
       fullName: {
         type: DataTypes.STRING,
-        len: [3, 50],
+        validate: {
+          len: [3, 50],
+        },
+        unique: false,
         allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
-        trim: true,
-        isLowercase: true,
-        isEmail: true,
+        validate: {
+          isLowercase: true,
+          isEmail: true,
+        },
         unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        required: true,
+        allowNull: false,
       },
       avatar: {
         type: DataTypes.STRING,
@@ -38,21 +44,11 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+
+  User.addHook("afterFind", (user, options) => {
+    if (user && user.avatar) {
+      user.avatar = `${config.addressServer}${user.avatar}`;
+    }
+  });
   return User;
 };
-
-// userScheme.post("findOne", function (result) {
-//   if (result && result.avatar) {
-//     result.avatar = `http://localhost:${config.port}/${result.avatar}`;
-//   }
-
-//   return result;
-// });
-
-// userScheme.post("findOneAndUpdate", function (result) {
-//   if (result.avatar) {
-//     result.avatar = `http://localhost:${config.port}/${result.avatar}`;
-//   }
-
-//   return result;
-// });

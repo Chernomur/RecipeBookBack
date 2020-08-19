@@ -10,14 +10,17 @@ module.exports = {
       },
       fullName: {
         type: Sequelize.STRING,
-        len: [3, 50],
+        validate: {
+          len: [3, 50],
+        },
         allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
-        trim: true,
-        isLowercase: true,
-        isEmail: true,
+        validate: {
+          isLowercase: true,
+          isEmail: true,
+        },
         unique: true,
       },
       password: {

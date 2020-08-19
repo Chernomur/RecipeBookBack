@@ -28,13 +28,13 @@ module.exports = {
         type: Sequelize.STRING,
       },
       difficulty: {
-        type: Sequelize.INTEGER,
-        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        required: true,
+        type: Sequelize.STRING,
+        enum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        allowNull: false,
       },
       cookingTime: {
         type: Sequelize.INTEGER,
-        required: true,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

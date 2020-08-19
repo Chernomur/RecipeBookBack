@@ -1,5 +1,6 @@
 const jwt = require("../utils/token");
 const db = require("../models");
+const config = require("../config");
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,12 +11,11 @@ module.exports = async (req, res, next) => {
 
     const { id } = jwt.verify(token);
 
-    user = await db.User.findOne({ where: { id: id } });
+    user = await db.User.findOne({ where: { id } });
 
     if (!user) {
       return res.sendStatus(404);
     }
-
     req.user = user;
 
     next();

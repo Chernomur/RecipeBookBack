@@ -12,20 +12,10 @@ const singIn = async (req, res) => {
 
     let user = await db.User.findOne({ where: { email } });
 
-    if (!email) {
-      return res.status(400).send({ field: "email", message: "invalid email" });
-    }
-
-    if (!password) {
-      return res
-        .status(400)
-        .send({ field: "password", message: "invalid password" });
-    }
-
     if (!user) {
       return res.status(404).send({
         field: "email",
-        message: "The email is incorrect.",
+        message: "The email not found .",
       });
     }
 
@@ -37,10 +27,6 @@ const singIn = async (req, res) => {
 
     user = user.toJSON();
     delete user.password;
-
-    // console.log("user.id", user.id);
-    // console.log("123456", token.create(user.id));
-    // console.log(jwt.verify(token.create({ id: user.id }), config.signature));
 
     res.json({ token: token.create({ id: user.id }), user });
   } catch (e) {
@@ -66,7 +52,7 @@ const singUp = async (req, res) => {
     user = user.toJSON();
     delete user.password;
     //console.log("tokenfs", { token: token.create(user.id), user });
-    res.json({ token: token.create(user.id), user });
+    res.json({ token: token.create({ id: user.id }), user });
   } catch (e) {
     console.error(e);
     console.log("register controller", e);

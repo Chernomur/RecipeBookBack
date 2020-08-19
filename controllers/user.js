@@ -112,18 +112,10 @@ const update = async (req, res) => {
       user.password = crypto(newPassword);
     }
 
-    // await db.User.findOneAndUpdate(
-    //   { id },
-    //   { fullName, email, password: user.password },
-    //   { new: true, runValidators: true, useFindAndModify: false }
-    // );
-
     await db.User.update(
       { fullName, email, password: user.password },
       { where: { id: id } }
-    ).then((res) => {
-      console.log(res);
-    });
+    );
 
     user = user.toJSON();
     delete user.password;
@@ -131,7 +123,6 @@ const update = async (req, res) => {
     res.json(user);
   } catch (e) {
     const error = errorHandler(res, e);
-    res.status(error.code).send(error);
   }
 };
 
@@ -143,33 +134,20 @@ const uploadImg = async (req, res) => {
   }
 
   if (user.avatar) {
-    try {
-      await fsPromised.unlink(
-        user.avatar.replace(`http://localhost:${config.port}`, "public") //file removed
-      );
-    } catch (err) {
-      console.error("Deletion ", err);
-    }
+    await fsPromised
+      .unlink(
+        user.avatar.replace(`${config.addressServer}`, "public/") //file removed
+      )
+      .catch(() => null);
   }
 
   user.avatar = file.path.replace("public/", "");
 
-  // let newUser = await db.User.findOneAndUpdate(
-  //   { id: user.id },
-  //   { avatar: user.avatar },
-  //   { new: true, runValidators: true, useFindAndModify: false }
-  // );
+  await db.User.update({ avatar: user.avatar }, { where: { id: user.id } });
 
-  let newUser = await db.User.update(
-    { avatar: user.avatar },
-    { where: { id: user.id } }
-  ).then((res) => {
-    console.log(res);
-  });
-
-  newUser = newUser.toJSON();
-  delete newUser.password;
-  res.send(newUser);
+  user = user.toJSON();
+  delete user.password;
+  res.send(user);
 };
 
 module.exports = {

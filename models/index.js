@@ -44,11 +44,3 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
-
-// const User = require('../models/User');
-// const Recipe = require('../models/Recipe');
-
-// module.exports = {
-//   User,
-//   Recipe
-// }
