@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           isLowercase: true,
           isEmail: true,
         },
+        allowNull: false,
         unique: true,
       },
       password: {

@@ -21,6 +21,7 @@ module.exports = {
           isLowercase: true,
           isEmail: true,
         },
+        allowNull: false,
         unique: true,
       },
       password: {
