@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         unique: false,
         allowNull: false,
       },
+      role: {
+        type: DataTypes.ENUM("client", "admin"),
+        allowNull: false,
+        defaultValue: "client",
+      },
       email: {
         type: DataTypes.STRING,
         validate: {
@@ -47,6 +52,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.addHook("afterFind", (user, options) => {
+    if (Array.isArray(user)) {
+      user.map((item) => {
+        item.dataValues.avatar = `${config.addressServer}${item.dataValues.avatar}`;
+      });
+    }
     if (user && user.avatar) {
       user.avatar = `${config.addressServer}${user.avatar}`;
     }

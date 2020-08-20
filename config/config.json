@@ -11,13 +11,13 @@
     "password": "",
     "database": "admin",
     "host": "127.0.0.1",
-    "dialect": "recipebook"
+    "dialect": "postgres"
   },
   "production": {
     "username": "admin",
     "password": "",
     "database": "admin",
     "host": "127.0.0.1",
-    "dialect": "recipebook"
+    "dialect": "postgres"
   }
 }

@@ -5,12 +5,40 @@ const validation = require("../utils/validation");
 const fs = require("fs");
 const fsPromised = fs.promises;
 const config = require("../config");
+const sequelize = require("sequelize");
+
+const countPagination = (page, size) => {
+  const limit = size ? +size : 10;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: users } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, users, totalPages, currentPage };
+};
 
 const allUsers = async (req, res) => {
   try {
-    const users = await db.User.find().select("-password");
+    const { page, size, orderby, order } = req.query;
+    const { limit, offset } = countPagination(page, size);
 
-    res.json(users);
+    let users = await db.User.findAndCountAll(
+      {
+        order: [[orderby, order]],
+        limit,
+        offset,
+      },
+      { attributes: { exclude: ["password"] } }
+    );
+
+    const response = getPagingData(users, page, limit);
+
+    res.json(response);
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);

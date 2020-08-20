@@ -15,6 +15,11 @@ module.exports = {
         },
         allowNull: false,
       },
+      role: {
+        type: Sequelize.ENUM("client", "admin"),
+        allowNull: false,
+        defaultValue: "client",
+      },
       email: {
         type: Sequelize.STRING,
         validate: {
@@ -25,11 +30,11 @@ module.exports = {
         unique: true,
       },
       password: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         required: true,
       },
       avatar: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

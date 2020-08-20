@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       difficulty: {
-        type: DataTypes.ENUM(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+        type: DataTypes.ENUM("Ease", "Middle", "Hard"),
         allowNull: false,
       },
       cookingTime: {

@@ -52,6 +52,10 @@ const processError = (err) => {
     // bad request
     return { code: 400, message: "TypeError" };
   }
+  console.log(err);
 
-  return { code, message } || { code: 500, message: "server error" };
+  if (err.message) {
+    return { code: err.code, message: err.message };
+  }
+  return { code: 500, message: "server error" };
 };

@@ -28,8 +28,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       difficulty: {
-        type: Sequelize.STRING,
-        enum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        type: Sequelize.ENUM("Ease", "Middle", "Hard"),
         allowNull: false,
       },
       cookingTime: {
