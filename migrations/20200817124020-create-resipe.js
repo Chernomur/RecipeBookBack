@@ -8,9 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      ownerId: {
+      authorId: {
         type: Sequelize.INTEGER,
         secondaryKey: true,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onDelete: "CASCADE",
         allowNull: false,
       },
 

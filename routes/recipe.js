@@ -7,9 +7,9 @@ const isAdminOrOwner = require("../middlewhare/isAdminOrOwner");
 
 router.use(isAuth);
 router.get("/", recipeController.allRecipe);
-// router.get("/:id", recipeController.findOne);
+router.get("/:id", recipeController.findOne);
 router.post("/", recipeController.createRecipe);
 router.delete("/:id", isAdminOrOwner, recipeController.deleteRecipe);
-// router.patch("/:id", recipeController.update);
+router.patch("/:id", isAdminOrOwner, recipeController.updateRecipe);
 
 module.exports = router;

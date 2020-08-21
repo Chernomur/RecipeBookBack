@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Recipe, {
+        as: "recipes",
+        foreignKey: "authorId",
+      });
     }
   }
   User.init(
@@ -61,5 +64,6 @@ module.exports = (sequelize, DataTypes) => {
       user.avatar = `${config.addressServer}${user.avatar}`;
     }
   });
+
   return User;
 };

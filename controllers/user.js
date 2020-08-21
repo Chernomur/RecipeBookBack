@@ -6,37 +6,24 @@ const fs = require("fs");
 const fsPromised = fs.promises;
 const config = require("../config");
 const sequelize = require("sequelize");
+const { countNumberPage, countPagingData } = require("../utils/pagination");
 
-const countPagination = (page, size) => {
-  const limit = size ? +size : 10;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
-
-const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: users } = data;
-  const currentPage = page ? +page : 0;
-  const totalPages = Math.ceil(totalItems / limit);
-
-  return { totalItems, users, totalPages, currentPage };
-};
-
+//todo first page is 1
 const allUsers = async (req, res) => {
   try {
     const { page, size, orderby, order } = req.query;
-    const { limit, offset } = countPagination(page, size);
+    const { limit, offset } = countNumberPage(page, size);
 
-    let users = await db.User.findAndCountAll(
-      {
-        order: [[orderby, order]],
-        limit,
-        offset,
-      },
-      { attributes: { exclude: ["password"] } }
-    );
+    let users = await db.User.findAndCountAll({
+      order: [[orderby, order]],
+      limit,
+      offset,
+      attributes: { exclude: ["password"] },
+      include: { model: db.Recipe, as: "recipes", attributes: ["id", "title"] },
+      distinct: true,
+    });
 
-    const response = getPagingData(users, page, limit);
+    const response = countPagingData(users, page, limit);
 
     res.json(response);
   } catch (e) {
@@ -48,11 +35,10 @@ const findOne = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (req.user.role !== "admin" && !req.user._id === id) {
-      return res.sendStatus(403);
-    }
-
-    let user = await db.User.findOne({ _id: id }).select("-password");
+    let user = await db.User.findAll({
+      where: { id },
+      attributes: { exclude: ["password"] },
+    });
     if (!user) {
       return res.sendStatus(404);
     }
@@ -94,7 +80,7 @@ const deleteUser = async (req, res) => {
       return res.sendStatus(403);
     }
 
-    await db.User.findByIdAndDelete(id);
+    await db.User.destroy({ where: { id } });
 
     res.sendStatus(204);
   } catch (e) {

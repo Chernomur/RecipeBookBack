@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const User = require("./user");
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
     /**
@@ -8,14 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.Recipe.belongsTo(models.User, {
+        foreignKey: "authorId",
+        as: "user",
+      });
     }
   }
   Recipe.init(
     {
-      ownerId: {
+      authorId: {
         type: DataTypes.INTEGER,
-        secondaryKey: true,
         allowNull: false,
       },
 
@@ -43,10 +46,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
+
     {
       sequelize,
       modelName: "Recipe",
     }
   );
+
   return Recipe;
 };
