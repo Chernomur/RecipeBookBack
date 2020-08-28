@@ -7,6 +7,7 @@ const fsPromised = fs.promises;
 const config = require("../config");
 const sequelize = require("sequelize");
 const { countNumberPage, countPagingData } = require("../utils/pagination");
+const { url } = require("inspector");
 
 //todo first page is 1
 const allUsers = async (req, res) => {
@@ -35,7 +36,7 @@ const findOne = async (req, res) => {
   try {
     const { id } = req.params;
 
-    let user = await db.User.findAll({
+    let user = await db.User.findOne({
       where: { id },
       attributes: { exclude: ["password"] },
     });
@@ -136,7 +137,7 @@ const update = async (req, res) => {
 
     res.json(user);
   } catch (e) {
-    const error = errorHandler(res, e);
+    errorHandler(res, e);
   }
 };
 
@@ -164,6 +165,63 @@ const uploadImg = async (req, res) => {
   res.send(user);
 };
 
+const addFavorite = async (req, res) => {
+  try {
+    const recipeId = req.body.id;
+    const favRecipe = await db.Recipe.findOne({
+      where: { id: recipeId },
+    });
+    if (!favRecipe) {
+      res.status(404).send({ message: "recipe not found" }); //
+    }
+
+    const alreadyExists = await db.User_Recipes.findOne({
+      where: { UserId: req.user.id, RecipeId: recipeId },
+    });
+
+    if (alreadyExists) {
+      return res.status(409).send({ message: "already in favorite" }); //
+    }
+
+    const UR = await new db.User_Recipes({
+      UserId: req.user.id,
+      RecipeId: recipeId,
+    });
+    await UR.save();
+
+    let favorite = await db.User.findOne({
+      where: { id: req.user.id },
+      attributes: { exclude: ["password"] },
+      include: [{ model: db.Recipe }],
+    });
+    //console.log(await favorite.getRecipes());
+
+    res.json(favorite);
+  } catch (e) {
+    errorHandler(res, e);
+  }
+};
+
+const delFavorite = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const favRecipe = await db.Recipe.findOne({
+      where: { id: recipeId },
+    });
+    if (!favRecipe) {
+      res.status(404).send({ message: "recipe not found" }); //
+    }
+
+    await db.User_Recipes.destroy({
+      where: { UserId: req.user.id, RecipeId: recipeId },
+    });
+
+    res.sendStatus(204);
+  } catch (e) {
+    errorHandler(res, e);
+  }
+};
+
 module.exports = {
   allUsers,
   findOne,
@@ -172,4 +230,6 @@ module.exports = {
   deleteUser,
   update,
   uploadImg,
+  addFavorite,
+  delFavorite,
 };

@@ -1,6 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
 const User = require("./user");
+const config = require("../config");
+
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
     /**
@@ -9,9 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Recipe.belongsTo(models.User, {
+      Recipe.belongsTo(models.User, {
         foreignKey: "authorId",
         as: "user",
+      });
+
+      Recipe.belongsToMany(models.User, {
+        through: { model: models.User_Recipes, unique: false },
+        foreignKey: "RecipeId",
       });
     }
   }
@@ -31,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       image: {
@@ -52,6 +59,19 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Recipe",
     }
   );
+
+  Recipe.addHook("afterFind", (recipe, options) => {
+    if (Array.isArray(recipe)) {
+      recipe.map((item) => {
+        if (item.dataValues.image) {
+          item.dataValues.image = `${config.addressServer}${item.dataValues.image}`;
+        }
+      });
+    }
+    if (recipe && recipe.image) {
+      recipe.image = `${config.addressServer}${recipe.image}`;
+    }
+  });
 
   return Recipe;
 };

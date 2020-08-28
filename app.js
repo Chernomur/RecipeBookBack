@@ -17,12 +17,12 @@ const app = express();
 // });
 app.use(cors());
 app.use(express.static("public"));
-app.use(
-  multer({
-    storage: multerConf.storageConfig,
-    fileFilter: multerConf.fileFilter,
-  }).single("filedata")
-);
+// app.use(
+//   multer({
+//     storage: multerConf.storageConfig,
+//     fileFilter: multerConf.fileFilter,
+//   }).single("filedata")
+// );
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json());
 

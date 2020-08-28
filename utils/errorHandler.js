@@ -36,6 +36,11 @@ const processError = (err) => {
       message = "invalid role";
       field = "role";
     }
+    if (err.message.includes("len on title")) {
+      message =
+        "The length of the dish name should be between 3 and 50 characters.";
+      field = "title";
+    }
     return { code: 400, message, field };
   }
 

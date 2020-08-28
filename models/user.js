@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "recipes",
         foreignKey: "authorId",
       });
+      User.belongsToMany(models.Recipe, {
+        //as: "favoriteRecipes",
+        through: { model: models.User_Recipes, unique: false },
+        foreignKey: "UserId",
+      });
     }
   }
   User.init(
@@ -57,7 +62,9 @@ module.exports = (sequelize, DataTypes) => {
   User.addHook("afterFind", (user, options) => {
     if (Array.isArray(user)) {
       user.map((item) => {
-        item.dataValues.avatar = `${config.addressServer}${item.dataValues.avatar}`;
+        if (item.dataValues.avatar) {
+          item.dataValues.avatar = `${config.addressServer}${item.dataValues.avatar}`;
+        }
       });
     }
     if (user && user.avatar) {
