@@ -8,6 +8,7 @@ const multer = require("../middlewhare/multer");
 
 router.use(isAuth);
 router.get("/", recipeController.allRecipe);
+router.get("/favorites", recipeController.favorites);
 router.get("/:id", recipeController.findOne);
 router.post(
   "/",

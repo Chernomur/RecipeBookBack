@@ -206,6 +206,60 @@ const uploadImg = async (req, res) => {
   res.send(recipe);
 };
 
+const favorites = async (req, res) => {
+  try {
+    const {
+      timeFrom,
+      timeTo,
+      difficulty,
+      sortField,
+      sortOrder,
+      search,
+    } = req.query;
+    let options = { where: {} };
+
+    if (search) {
+      const title = Sequelize.where(
+        Sequelize.fn("LOWER", Sequelize.col("title")),
+        "LIKE",
+        "%" + search.toLowerCase() + "%"
+      );
+      const description = Sequelize.where(
+        Sequelize.fn("LOWER", Sequelize.col("description")),
+        "LIKE",
+        "%" + search.toLowerCase() + "%"
+      );
+
+      options.where = {
+        [Op.or]: [title, description],
+      };
+    }
+    if (difficulty) {
+      options.where.difficulty = difficulty;
+    }
+    if (timeFrom && timeTo) {
+      options.where.cookingTime = { [Op.between]: [timeFrom, timeTo] };
+    }
+    if (sortField) {
+      options.order = [[sortField, sortOrder]];
+    }
+    console.log("options", options);
+
+    const favorites = await db.User.findOne({
+      where: { id: req.user.id },
+      attributes: { exclude: ["password"] },
+      include: [{ options, model: db.Recipe, hooks: true }],
+      hooks: true,
+    });
+    console.log("options", options);
+
+    res.json(favorites);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+};
+
 module.exports = {
   allRecipe,
   createRecipe,
@@ -213,4 +267,5 @@ module.exports = {
   deleteRecipe,
   updateRecipe,
   uploadImg,
+  favorites,
 };
